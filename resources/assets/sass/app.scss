@@ -1,0 +1,11 @@
+@import "partials/_variables";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "partials/_bootwatch";
+@import "node_modules/dropzone/dist/dropzone";
+
+
+/*base*/
+@import "base/layout";
+@import "base/mixins";
+/*components*/
+@import "components/dropzone";
