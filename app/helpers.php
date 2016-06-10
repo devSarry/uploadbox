@@ -1,6 +1,12 @@
 <?php
 
-if (!function_exists('intToMonth')) {
+if (!function_exists('menuItem')) {
+    function menuItem($path, $name){
+        return sprintf('<li><a href="%s">%s</a></li>', $path, $name);
+    }
+}
+
+    if (!function_exists('intToMonth')) {
     function intToMonth($i)
     {
         $monthArr = [
@@ -132,3 +138,4 @@ if (!function_exists('parseArticle')) {
         return $inputs;
     }
 }
+

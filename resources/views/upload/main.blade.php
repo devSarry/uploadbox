@@ -14,19 +14,27 @@
     <div class="panel panel-default">
         <br>
         <div class="panel-body">
-            <image-upload-box action="{{url('photos')}}">
+            <form method="POST" action={{ action('PhotosController@store') }} accept-charset="UTF-8" class="form-group">
                 {{ csrf_field() }}
-                penis penis penis
-            </image-upload-box>
-            <br>
-            <form method="POST" action={{ url('photos') }} accept-charset="UTF-8" class="form-group">
-                {{ csrf_field() }}
+                <image-upload-box name="photo_name"></image-upload-box>
+                <div class="form-group">
+                    <label for="inputName" class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="inputName" name="name" placeholder="Name">
+                    </div>
+                </div>
 
-                <input type="text" name="name" class="form-control" title="Name" placeholder="enter name" required="required" >
-                <hr>
-                <button type="submit" class="btn btn-primary">Submit</button>
-
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
             </form>
+
+
+            <br>
+            <pre>@{{ $data | json }}</pre>
         </div>
 
     </div>

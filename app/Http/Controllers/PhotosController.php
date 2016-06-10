@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Photo;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\File;
 
 class PhotosController extends Controller
 {
@@ -36,13 +38,26 @@ class PhotosController extends Controller
      */
     public function store(Request $request)
     {
-        if(!$request->name){
-            $file = $request->file('file');
-            $name = time() . $file->getClientOriginalName();
-            //$file->move('tmp/photos', $name);
 
-            return json_encode(['tmp_photo_name' => $name]);
+        dd($request->all());
+        $file = $request->file('file')[0];
+
+        $file_name = time() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+
+        if(!$request->name || $request->name == 'undefined'){
+            $file->move('tmp/photos', $file_name);
+
+            return json_encode(['tmp_photo_name' => $file_name]);
         }
+
+        $file->move('uploads/photos', $file_name);
+
+        Photo::create([
+            'name' => $request->name,
+            'path' => $file_name
+        ]);
+
+        return json_encode(['message' => 'File Uploaded'],200);
     }
 
     /**
@@ -90,8 +105,18 @@ class PhotosController extends Controller
         //
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
     public function deleteTempPhoto($name)
     {
+        File::delete('tmp/photos/' . $name);
         return 'deleteing ' .  $name;
+    }
+
+    public function test(Request $request)
+    {
+        dd($request->all());
     }
 }

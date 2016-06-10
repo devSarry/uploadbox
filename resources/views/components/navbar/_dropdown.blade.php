@@ -1,4 +1,5 @@
 {{--
+    **** How to use this partial *****
                 @include('partials._dropdown',
                     ['menu' => [
                         ['name' => 'item', 'route' => '/path'],
