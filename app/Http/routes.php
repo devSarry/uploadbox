@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'AdminController@index');
+Route::get('/', 'HomeController@index');
 
 
 // Authentication routes...
