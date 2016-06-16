@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Photo;
 use App\Portfolio;
+use DebugBar;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -32,7 +34,7 @@ class PortfolioController extends Controller {
     {
         $data['form'] = $formBuilder->create('PortfolioForm', [
             'method' => 'POST',
-            'url' => url('portfolios')
+            'url'    => url('portfolios')
         ]);
 
         return view('back.portfolios.create', compact('data'));
@@ -49,34 +51,26 @@ class PortfolioController extends Controller {
 
         //validate the data
         $this->validate($request, [
-            'photo_name' => 'image',
-            'title' => 'required',
-            'date'  => 'required',
-            'description'  => 'required'
+            'photo_name'  => 'image',
+            'title'       => 'required',
+            'date'        => 'required',
+            'description' => 'required'
         ]);
         //Rename the photo
-        $photo = $request->file('file')[0];
-        $file_name = time() . '_' . str_replace(' ', '_', $photo->getClientOriginalName());
-        //create a thumbnail
-        //move the photo and thumbnail
-        $photo->move('uploads/photos/', $file_name);
-
-        $photo_path = 'uploads/photos/' . $file_name;
+        $photo = Photo::fromFile($request->file('file')[0]);
 
         //store the data
-        $portfolio = new Portfolio([
+        $portfolio = Portfolio::create([
             'title'       => $request->input('title'),
+            'sub_title'   => $request->input('sub_title'),
             'client'      => $request->input('client'),
             'date'        => $request->input('date'),
             'service'     => $request->input('service'),
             'description' => $request->input('description'),
-            'photo_name'  => $photo->getClientOriginalName(),
-            'photo_path'  => $photo_path
         ]);
 
-        $portfolio->save();
 
-
+        $portfolio->addPhoto($photo);
 
         //return to index
         return redirect('portfolios');

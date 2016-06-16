@@ -13,9 +13,9 @@
             {{-- @foreach($data['members'] as $member --}}
             <div class="col-sm-4">
                 <div class="team-member">
-                    <img src="img/team/{{-- $member->image --}}" class="img-responsive img-circle" alt="">
+                    <img src="{{url('http://blackrockdigital.github.io/startbootstrap-agency/img/team/1.jpg')}}" class="img-responsive img-circle" alt="">
                     <h4>{{-- $member->name --}}</h4>
-                    <p class="text-muted">{{-- $member->position --}}</p>
+                    <p class="text-muted">Some dummy position {{-- $member->position --}}</p>
                     <ul class="list-inline social-buttons">
                         {{-- @foreach($member->social_medias as $social_media --}}
                         <li>

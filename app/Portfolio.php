@@ -12,6 +12,16 @@ class Portfolio extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'client', 'date', 'service', 'description', 'photo_name', 'photo_path'
+        'title', 'sub_title', 'client', 'date', 'service', 'description'
     ];
+
+    public function photos()
+    {
+        return $this->morphMany('App\Photo', 'imageable');
+    }
+
+    public function addPhoto(Photo $photo)
+    {
+        return $this->photos()->save($photo);
+    }
 }

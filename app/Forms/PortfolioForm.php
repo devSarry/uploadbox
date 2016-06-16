@@ -11,6 +11,7 @@ class PortfolioForm extends Form {
         $this
             ->add('photo_name', 'image')
             ->add('title', 'text')
+            ->add('sub_title', 'text')
             ->add('client', 'text')
             ->add('date', 'date')
             ->add('service', 'text')
